@@ -1,52 +1,54 @@
-//Из целочисленного массива Х(N) все нечетные элементы записать в массив Y(k).
-//Удалить из каждого массива все двузначные числа.
-#include<stdio.h>
-#include<stdlib.h>
-#include<time.h>
-#include<malloc.h>
-int main(void) {
-  system("CHCP 1251");
-  srand((unsigned)time(NULL));
-  int size = (rand() % 25) + 1;
-  int *X = (int*)malloc(40 * sizeof(int));
-  int *Y = (int*)malloc(40 * sizeof(int));
-  int flag = 0;
-  int rewrite = 0;
-  int rewritedv = 0;
-  printf("Первый массив: \n");
-  for (int i = 0; i<size; i++) {  
-    int c = rand() % 500;
-    X[i] = c;
-    if ((c % 2) == 1) {
-      Y[flag] = X[i];
-      flag++;
+#include <iostream>
+#include <windows.h>
+#include <cstdlib>
+#include <cstdio>
+#include <ctime>
+#include <locale.h>
+
+int main(int argc, char* argv[], char* env[]) {
+    SetConsoleOutputCP(1251);
+    SetConsoleCP(1251);
+    system("CHCP 1251");
+    setlocale(LC_ALL, "rus");
+    srand(time(0));
+
+    printf_s("Количество аргументов командной строки: %i \n", argc);
+    printf("Аргументы командной строки:\n");
+    for (int i = 0; i < argc; i++) {
+        printf_s("%s\n", argv[i]);
     }
-    printf("%i\n", X[i]);
-  }
-  printf("Второй массив: \n");
-  for (int i = 0; i < flag; i++) {
-    printf("%i\n", Y[i]);
-  }
-  printf("Первый массив без двузначных: \n");
-  for (int i = 0; i < size; i++) {
-    if (X[i] < 10  X[i] > 99) {
-      X[rewrite] = X[i];
-      rewrite++;
+
+    if (argc != 4) {
+        printf("Не хватает элементов");
+        return 0;
     }
-  }
-  for (int i = 0; i < rewrite; i++) {
-    printf("%i\n", X[i]);
-  }
-  printf("Второй массив без двузначных: \n");
-  for (int i = 0; i < flag; i++) {
-    if (Y[i] < 10  Y[i] > 99) {
-      Y[rewritedv] = Y[i];
-      rewritedv++;
+
+    double num1 = atoi(argv[1]);
+    int num2 = atoi(argv[3]);
+    char num3 = argv[2][0];
+    double num;
+
+    printf(" %i %i %c\n", num1, num2, num3);
+
+    if (num3 == '+') {
+        num = num1 + num2;
+        printf_s("%f\n", num);
     }
-  }
-  for (int i = 0; i < rewritedv; i++) {
-    printf("%i\n", Y[i]);
-  }
-  free(X);
-  free(Y);
+    if (num3 == '-') {
+        num = num1 - num2;
+        printf_s("%f\n", num);
+    }
+    if (num3 == 'x') {
+        num = num1 * num2;
+        printf_s("%f\n", num);
+    }
+    if (num3 == '/' && num2 != 0) {
+        num = num1 / num2;
+        printf_s("%f\n", num);
+    }
+    if (num3 == '/' && num2 == 0) {
+        printf("Невозможно поделить на нуль");
+    }
+
+    return 0;
 }
